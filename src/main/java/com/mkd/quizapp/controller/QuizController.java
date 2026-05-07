@@ -14,11 +14,13 @@ import com.mkd.quizapp.dto.QuestionWrapper;
 import com.mkd.quizapp.dto.Response;
 import com.mkd.quizapp.service.QuizService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/quiz")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class QuizController {
     @Autowired
     QuizService quizService;

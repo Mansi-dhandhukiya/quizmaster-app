@@ -18,7 +18,7 @@
 </div>
 
 <script>
-  const BASE_URL = "https://quizmaster-app-production-a9fd.up.railway.app";
+  // const BASE_URL = "https://quizmaster-app-production-a9fd.up.railway.app";
     fetch("navbar.html")
   .then(res => res.text())
   .then(data => {
@@ -29,7 +29,7 @@ function login() {
     let password = document.getElementById("password").value;
     let msg = document.getElementById("msg");
 
-    fetch(`${BASE_URL}/auth/login`, {
+    fetch("http://localhost:8080/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })

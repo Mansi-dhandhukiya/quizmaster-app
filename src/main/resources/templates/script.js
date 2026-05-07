@@ -1,7 +1,7 @@
 let quizId = null;
 let questions = [];
 
-const BASE_URL = "https://quizmaster-app-production-a9fd.up.railway.app";
+// const BASE_URL = "https://quizmaster-app-production-c2bb.up.railway.app";
 
 function getAuthHeaders() {
     return {
@@ -45,7 +45,7 @@ function addQuestion() {
         difficultyLevel: difficulty
     };
 
-    fetch(`${BASE_URL}/question/add`, {
+    fetch("http://localhost:8080/question/add", {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify(data)
@@ -61,9 +61,9 @@ function createQuiz() {
     let numQ = document.getElementById("numQ").value;
     let title = document.getElementById("title").value;
 
-    fetch(`${BASE_URL}/quiz/create?category=${category}&numQ=${numQ}&title=${title}`, {
-        method: "POST"
-    })
+   fetch(`http://localhost:8080/quiz/create?category=${category}&numQ=${numQ}&title=${title}`, {
+    method: "POST"
+})
     .then(res => res.json())
     .then(id => {
         quizId = id;
@@ -73,7 +73,7 @@ function createQuiz() {
 }
 
 function loadQuestions() {
-    fetch(`${BASE_URL}/quiz/get/${quizId}`)
+    fetch(`http://localhost:8080/quiz/get/${quizId}`)
         .then(res => res.json())
         .then(data => {
             questions = data;
@@ -82,25 +82,47 @@ function loadQuestions() {
 }
 
 function displayQuestions() {
+
     let quizDiv = document.getElementById("quiz");
     quizDiv.innerHTML = "";
 
-    questions.forEach((q) => {
+    if (!Array.isArray(questions)) {
+        quizDiv.innerHTML = "No questions found!";
+        return;
+    }
+
+    questions.forEach((q, index) => {
+
         let div = document.createElement("div");
         div.classList.add("question");
 
         div.innerHTML = `
-            <h3>${q.questionTitle}</h3>
-            <label><input type="radio" name="q${q.id}" value="${q.option1}"> ${q.option1}</label><br>
-            <label><input type="radio" name="q${q.id}" value="${q.option2}"> ${q.option2}</label><br>
-            <label><input type="radio" name="q${q.id}" value="${q.option3}"> ${q.option3}</label><br>
-            <label><input type="radio" name="q${q.id}" value="${q.option4}"> ${q.option4}</label>
+            <h3>${index + 1}. ${q.questionTitle}</h3>
+
+            <label>
+                <input type="radio" name="q${q.id}" value="${q.option1}">
+                ${q.option1}
+            </label><br>
+
+            <label>
+                <input type="radio" name="q${q.id}" value="${q.option2}">
+                ${q.option2}
+            </label><br>
+
+            <label>
+                <input type="radio" name="q${q.id}" value="${q.option3}">
+                ${q.option3}
+            </label><br>
+
+            <label>
+                <input type="radio" name="q${q.id}" value="${q.option4}">
+                ${q.option4}
+            </label>
         `;
 
         quizDiv.appendChild(div);
     });
 }
-
 function submitQuiz() {
     let responses = [];
 
@@ -114,7 +136,7 @@ function submitQuiz() {
         }
     });
 
-    fetch(`${BASE_URL}/quiz/submit/${quizId}`, {
+    fetch(`http://localhost:8080/quiz/submit/${quizId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(responses)
