@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,10 +17,13 @@ import com.mkd.quizapp.repository.Quizdao;
 
 @Service
 public class QuizService {
-    @Autowired
-    Quizdao quizDao;
-    @Autowired
-    QuestionDao questionDao;
+    final Quizdao quizDao;
+    final QuestionDao questionDao;
+
+    QuizService(Quizdao quizDao, QuestionDao questionDao) {
+        this.quizDao = quizDao;
+        this.questionDao = questionDao;
+    }
 
    public ResponseEntity<Integer> createQuiz(String category, int numQ, String title) {
 

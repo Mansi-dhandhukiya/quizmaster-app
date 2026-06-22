@@ -10,7 +10,6 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,8 +26,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("question")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class QuestionController {
-    @Autowired
-    QuestionService questionService;
+    final QuestionService questionService;
+
+    QuestionController(QuestionService questionService) {
+        this.questionService = questionService;
+    }
     
     @GetMapping("allQuestions")
     public ResponseEntity<List<Question>> getAllQuestions(){

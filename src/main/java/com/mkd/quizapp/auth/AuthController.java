@@ -1,7 +1,6 @@
 package com.mkd.quizapp.auth;
 
 import com.mkd.quizapp.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,16 +12,19 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     // Hardcoded admin for now — Step 7 moves this to DB
     private final String ADMIN_USER = "admin";
     private final String ADMIN_PASS_HASH =
         "$2a$10$nADXo7SJ2AzcsFWZoyjhf.SEHkSFQOmIU4TfRBNjniAjrqG3tr1aq";
+
+    AuthController(PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+    }
         // This is bcrypt of "1234"
 
     @PostMapping("/login")

@@ -3,7 +3,6 @@ package com.mkd.quizapp.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,11 @@ import com.mkd.quizapp.repository.QuestionDao;
 
 @Service
 public class QuestionService {
-    @Autowired
-    QuestionDao questionDao;
+    final QuestionDao questionDao;
+
+  QuestionService(QuestionDao questionDao) {
+    this.questionDao = questionDao;
+  }
       
   public ResponseEntity<List<Question>> findAll(){
     try{

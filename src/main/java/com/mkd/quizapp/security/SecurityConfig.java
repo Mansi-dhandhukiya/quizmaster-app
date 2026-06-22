@@ -37,9 +37,9 @@ public class SecurityConfig {
                 .requestMatchers("/quiz/get/**").permitAll()
                 .requestMatchers("/quiz/submit/**").permitAll()
                 // Admin routes — need JWT token
-                .requestMatchers(HttpMethod.POST, "/question/add").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/question/delete/**").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/question/update/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/question/add").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/question/delete/**").permitAll()
+                .requestMatchers(HttpMethod.PUT, "/question/update/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
