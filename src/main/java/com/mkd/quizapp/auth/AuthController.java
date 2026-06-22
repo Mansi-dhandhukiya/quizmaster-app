@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
+//https://quizmaster-app-production-a9fd.up.railway.app/question/allQuestions
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

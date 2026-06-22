@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/quiz")
-@CrossOrigin(origins = "https://quizmaster-md.netlify.app")
+@CrossOrigin(origins = "https://quizmaster-md.netlify.app/")
 public class QuizController {
     @Autowired
     QuizService quizService;
