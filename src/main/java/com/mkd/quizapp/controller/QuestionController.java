@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 @RequestMapping("question")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "https://quizmaster-md.netlify.app")
 public class QuestionController {
     final QuestionService questionService;
 
